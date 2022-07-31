@@ -1,5 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { WikipediaService } from './wikipedia.service';
+
+interface Pages {
+  title: string;
+  snippet: string;
+  pageid: number;
+}
 
 @Component({
   selector: 'app-root',
@@ -7,12 +13,12 @@ import { WikipediaService } from './wikipedia.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  @Input() pages = [];
+  pages: Pages[] = [];
   constructor(private wikipediaService: WikipediaService) {}
 
   onTerm(term: string) {
-    this.wikipediaService.search(term).subscribe((response: any) => {
-      this.pages = response.query.search;
+    this.wikipediaService.search(term).subscribe((pages) => {
+      this.pages = pages;
     });
   }
 }
