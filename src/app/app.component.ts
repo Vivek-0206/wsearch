@@ -17,8 +17,10 @@ export class AppComponent {
   constructor(private wikipediaService: WikipediaService) {}
 
   onTerm(term: string) {
-    this.wikipediaService.search(term).subscribe((pages) => {
-      this.pages = pages;
-    });
+    if (term) {
+      this.wikipediaService.search(term).subscribe((pages) => {
+        this.pages = pages;
+      });
+    }
   }
 }
